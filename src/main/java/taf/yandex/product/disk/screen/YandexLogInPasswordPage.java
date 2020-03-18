@@ -6,19 +6,19 @@ import org.openqa.selenium.support.PageFactory;
 import taf.framework.loger.Log;
 import taf.framework.ui.Browser;
 
-public class YandexLogInPasswordPage extends Browser {
+public class YandexLogInPasswordPage {
 
     private By loginPasswordLocator = By.xpath("//input[@id='passp-field-passwd']");
 
     public YandexLogInPasswordPage() {
         super();
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(Browser.getInstance().getWrappedDriver(), this);
     }
 
     public YandexAccountPage loginPasswordAccount(String password) {
 
-        type(loginPasswordLocator, password);
-        WebElement loginPassword = driver.findElement(loginPasswordLocator);
+        Browser.getInstance().type(loginPasswordLocator, password);
+        WebElement loginPassword = Browser.getInstance().getWrappedDriver().findElement(loginPasswordLocator);
         loginPassword.submit();
 
         Log.info("The password was submitted");

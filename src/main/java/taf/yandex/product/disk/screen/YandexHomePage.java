@@ -5,7 +5,7 @@ import org.openqa.selenium.support.PageFactory;
 import taf.framework.loger.Log;
 import taf.framework.ui.Browser;
 
-public class YandexHomePage extends Browser {
+public class YandexHomePage {
 
     private By loginButtonLocator = By.xpath("//a[contains(@class, 'desk-notif-card__login-enter-expanded')]");
 
@@ -13,15 +13,15 @@ public class YandexHomePage extends Browser {
 
     public YandexHomePage() {
         super();
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(Browser.getInstance().getWrappedDriver(), this);
     }
 
     public YandexLogInAccountPage loginToYandex() {
 
-        driver.get(START_URL);
+        Browser.getInstance().getWrappedDriver().get(START_URL);
         Log.info("Starting page of the test is: " + START_URL);
 
-        click(loginButtonLocator);
+        Browser.getInstance().click(loginButtonLocator);
 
         return new YandexLogInAccountPage();
     }

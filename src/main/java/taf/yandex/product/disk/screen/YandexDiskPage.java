@@ -3,12 +3,10 @@ package taf.yandex.product.disk.screen;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import taf.framework.loger.Log;
 import taf.framework.ui.Browser;
 
-public class YandexDiskPage extends Browser {
+public class YandexDiskPage {
 
     private WebElement createFile;
 
@@ -18,16 +16,16 @@ public class YandexDiskPage extends Browser {
 
     public YandexDiskPage() {
         super();
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(Browser.getInstance().getWrappedDriver(), this);
     }
 
     public YandexWordPage createFile() {
 
-        driver.manage().window().maximize();
+        Browser.getInstance().getWrappedDriver().manage().window().maximize();
 
-        click(buttonLocator);
+        Browser.getInstance().click(buttonLocator);
 
-        click(textDocument);
+        Browser.getInstance().click(textDocument);
 
         return new YandexWordPage();
     }
@@ -35,13 +33,13 @@ public class YandexDiskPage extends Browser {
     public YandexDiskPage deleteFile(String filename) {
         Log.info("Check file with name" + filename);
         By document = By.xpath("//span[contains(text(), '" + filename + "')]");
-        WebElement doc = driver.findElement(document);
-        highlightElement(doc);
+        WebElement doc = Browser.getInstance().getWrappedDriver().findElement(document);
+        Browser.getInstance().highlightElement(doc);
         doc.click();
         Log.info("Deleting file " + filename);
         By deleteItem = By.xpath("//button[contains(@class, 'groupable-buttons__visible-button_name_delete')]");
-        WebElement delete = driver.findElement(deleteItem);
-        highlightElement(delete);
+        WebElement delete = Browser.getInstance().getWrappedDriver().findElement(deleteItem);
+        Browser.getInstance().highlightElement(delete);
         Log.info("Deleting document ");
         delete.click();
         return this;

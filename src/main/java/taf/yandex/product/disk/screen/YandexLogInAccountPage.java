@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import taf.framework.ui.Browser;
 
-public class YandexLogInAccountPage extends Browser {
+public class YandexLogInAccountPage {
 
     private WebElement loginName;
 
@@ -13,13 +13,14 @@ public class YandexLogInAccountPage extends Browser {
 
     public YandexLogInAccountPage() {
         super();
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(Browser.getInstance().getWrappedDriver(), this);
     }
 
     public YandexLogInPasswordPage loginToAccound(String login) {
 
-        type(loginLocator, login);
-        loginName = driver.findElement(loginLocator);
+        Browser.getInstance().click(loginLocator);
+        Browser.getInstance().type(loginLocator, login);
+        loginName = Browser.getInstance().getWrappedDriver().findElement(loginLocator);
         loginName.submit();
 
         return new YandexLogInPasswordPage();

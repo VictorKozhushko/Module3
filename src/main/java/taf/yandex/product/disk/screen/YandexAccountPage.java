@@ -7,7 +7,7 @@ import taf.framework.ui.Browser;
 
 import java.util.List;
 
-public class YandexAccountPage extends Browser {
+public class YandexAccountPage {
 
     private WebElement disk;
 
@@ -17,15 +17,15 @@ public class YandexAccountPage extends Browser {
 
     public YandexAccountPage() {
         super();
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(Browser.getInstance().getWrappedDriver(), this);
     }
 
     public YandexDiskPage switchToDisk() {
 
-        click(diskButton);
+        Browser.getInstance().click(diskButton);
 
         By advertismentWindow = By.xpath("//button[contains(@class, 'button2_view_classic')]");
-        advertisment = driver.findElements(advertismentWindow);
+        advertisment = Browser.getInstance().getWrappedDriver().findElements(advertismentWindow);
         if (advertisment.size() != 0) {
             advertisment.get(0).click();
         }

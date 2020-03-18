@@ -2,7 +2,6 @@ package taf.framework.ui;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import taf.framework.loger.Log;
@@ -10,9 +9,9 @@ import taf.framework.loger.Log;
 import java.io.File;
 import java.io.IOException;
 
-public class Browser implements WrapsDriver {
+public final class Browser implements WrapsDriver {
 
-    protected static WebDriver driver;
+    private static WebDriver wrappedWebDriver;
 
     private static final int ELEMENT_VISIBILITY_TIMEOUT_SECONDS = 10;
 
@@ -25,17 +24,15 @@ public class Browser implements WrapsDriver {
         return instance.get();
     }
 
-    protected Browser() {
-        if (driver == null) {
-            driver = BrowserFactory.getBrowser();
+    private Browser() {
+        if (wrappedWebDriver == null) {
+            wrappedWebDriver = BrowserFactory.getBrowser();
         }
     }
 
     public void stopBrowser() {
         try {
-            if (getWrappedDriver() != null) {
-                getWrappedDriver().quit();
-            }
+            getWrappedDriver().quit();
         } catch (WebDriverException exc) {
             Log.info("Exception during closing browser " + exc.getMessage());
         } finally {
@@ -60,7 +57,7 @@ public class Browser implements WrapsDriver {
     public void makeScreenShot() {
         File screenshotFile = new File("logs/screenshots" + System.nanoTime() + "screenshot.png");
         try {
-            File screenshotAsFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            File screenshotAsFile = ((TakesScreenshot) wrappedWebDriver).getScreenshotAs(OutputType.FILE);
             FileUtils.copyFile(screenshotAsFile, screenshotFile);
             Log.info("Screenshot taken: file:" + screenshotFile.getAbsolutePath());
         } catch (IOException e) {
@@ -70,23 +67,20 @@ public class Browser implements WrapsDriver {
 
     public void highlightElement(WebElement element) {
         String backgroundColor = element.getCssValue("backgroundColor");
-        JavascriptExecutor js = (JavascriptExecutor) driver;
+        JavascriptExecutor js = (JavascriptExecutor) wrappedWebDriver;
         js.executeScript("arguments[0].style.backgroundColor = '" + "yellow" + "'", element);
         makeScreenShot();
         js.executeScript("arguments[0].style.backgroundColor = '" + backgroundColor + "'", element);
     }
 
     public WebElement waitWebElement(By locator) {
-        return new WebDriverWait(driver, ELEMENT_VISIBILITY_TIMEOUT_SECONDS)
+        return new WebDriverWait(wrappedWebDriver, ELEMENT_VISIBILITY_TIMEOUT_SECONDS)
                 .until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     @Override
     public WebDriver getWrappedDriver() {
-        if (driver == null) {
-            driver = BrowserFactory.getBrowser();
-        }
-        return driver;
+        return wrappedWebDriver;
     }
 }
 
