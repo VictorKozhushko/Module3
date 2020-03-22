@@ -11,7 +11,6 @@ public class YandexLogInPasswordPage {
     private By loginPasswordLocator = By.xpath("//input[@id='passp-field-passwd']");
 
     public YandexLogInPasswordPage() {
-        super();
         PageFactory.initElements(Browser.getInstance().getWrappedDriver(), this);
     }
 

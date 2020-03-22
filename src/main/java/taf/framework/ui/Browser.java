@@ -41,7 +41,7 @@ public final class Browser implements WrapsDriver {
     }
 
     public void type(By by, String text) {
-        Log.info("Text " + text + " inserter into " + by.toString());
+        Log.info("Text " + text + " insert into " + by.toString());
         WebElement webElement = waitWebElement(by);
         highlightElement(webElement);
         webElement.sendKeys(text);

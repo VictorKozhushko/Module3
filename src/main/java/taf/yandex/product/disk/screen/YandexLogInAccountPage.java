@@ -12,13 +12,12 @@ public class YandexLogInAccountPage {
     private By loginLocator = By.xpath("//input[@id='passp-field-login']");
 
     public YandexLogInAccountPage() {
-        super();
+
         PageFactory.initElements(Browser.getInstance().getWrappedDriver(), this);
     }
 
     public YandexLogInPasswordPage loginToAccound(String login) {
 
-        Browser.getInstance().click(loginLocator);
         Browser.getInstance().type(loginLocator, login);
         loginName = Browser.getInstance().getWrappedDriver().findElement(loginLocator);
         loginName.submit();

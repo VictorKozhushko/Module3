@@ -13,7 +13,6 @@ public class YandexWordPage {
     private By paragraph = By.xpath("//p[@class='Paragraph']");
 
     public YandexWordPage() {
-        super();
         PageFactory.initElements(Browser.getInstance().getWrappedDriver(), this);
     }
 

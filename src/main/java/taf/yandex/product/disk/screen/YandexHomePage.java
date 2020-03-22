@@ -12,7 +12,6 @@ public class YandexHomePage {
     private static final String START_URL = "https://www.yandex.ru";
 
     public YandexHomePage() {
-        super();
         PageFactory.initElements(Browser.getInstance().getWrappedDriver(), this);
     }
 

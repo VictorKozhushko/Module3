@@ -15,7 +15,6 @@ public class YandexDiskPage {
     private By textDocument = By.xpath("//span[contains(text(), 'документ')]");
 
     public YandexDiskPage() {
-        super();
         PageFactory.initElements(Browser.getInstance().getWrappedDriver(), this);
     }
 

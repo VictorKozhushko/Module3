@@ -16,7 +16,6 @@ public class YandexAccountPage {
     private By diskButton = By.xpath("//a[@data-id='disk']");
 
     public YandexAccountPage() {
-        super();
         PageFactory.initElements(Browser.getInstance().getWrappedDriver(), this);
     }
 
