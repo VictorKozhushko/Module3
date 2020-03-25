@@ -10,7 +10,7 @@ import taf.framework.ui.Browser;
 
 public class YandexWordPage {
 
-    private By paragraph = By.xpath("//p[@class='Paragraph']");
+    private By paragraph = By.xpath("//div[@id='WACViewPanel_EditingElement']");
 
     public YandexWordPage() {
         PageFactory.initElements(Browser.getInstance().getWrappedDriver(), this);

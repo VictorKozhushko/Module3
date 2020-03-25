@@ -11,6 +11,8 @@ public class YandexHomePage {
 
     private static final String START_URL = "https://www.yandex.ru";
 
+    private String tabYandex;
+
     public YandexHomePage() {
         PageFactory.initElements(Browser.getInstance().getWrappedDriver(), this);
     }
@@ -20,9 +22,15 @@ public class YandexHomePage {
         Browser.getInstance().getWrappedDriver().get(START_URL);
         Log.info("Starting page of the test is: " + START_URL);
 
+        tabYandex = Browser.getInstance().getWrappedDriver().getWindowHandle();
+
         Browser.getInstance().click(loginButtonLocator);
 
         return new YandexLogInAccountPage();
+    }
+
+    public String getTabYandexHome() {
+        return tabYandex;
     }
 
 }

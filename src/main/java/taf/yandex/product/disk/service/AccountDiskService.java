@@ -14,14 +14,15 @@ public class AccountDiskService {
 
     public static YandexWordPage switchToDiskPage(YandexAccountPage yandexAccountPage) {
 
-        String yandexTab = Browser.getInstance().getWrappedDriver().getWindowHandle();
+        ArrayList<String> yandexTabs = new ArrayList<>(Browser.getInstance().getWrappedDriver().getWindowHandles());
 
         YandexDiskPage yandexDiskPage = yandexAccountPage.switchToDisk();
 
         ArrayList<String> tabs = new ArrayList<>(Browser.getInstance().getWrappedDriver().getWindowHandles());
 
-        tabs.remove(yandexTab);
-        String yandexDriver = tabs.get(0);
+        tabs.remove(yandexTabs);
+
+        String yandexDriver = tabs.get(2);
 
         Browser.getInstance().getWrappedDriver().switchTo().window(yandexDriver);
 
@@ -30,9 +31,7 @@ public class AccountDiskService {
         YandexWordPage yandexWordPage = yandexDiskPage.createFile();
         tabs = new ArrayList<>(Browser.getInstance().getWrappedDriver().getWindowHandles());
 
-        tabs.remove(yandexTab);
-        tabs.remove(yandexDriver);
-        yandexWordTab = tabs.get(0);
+        yandexWordTab = tabs.get(3);
 
         Browser.getInstance().getWrappedDriver().switchTo().window(yandexWordTab);
 
